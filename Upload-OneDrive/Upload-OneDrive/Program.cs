@@ -43,8 +43,6 @@ namespace Upload_OneDrive
             }
             catch (MsalUiRequiredException ex)
             {
-                // A MsalUiRequiredException happened on AcquireTokenSilentAsync. 
-                // This indicates you need to call AcquireTokenAsync to acquire a token
                 System.Diagnostics.Debug.WriteLine($"MsalUiRequiredException: {ex.Message}");
             }
 
@@ -58,20 +56,20 @@ namespace Upload_OneDrive
                           return Task.FromResult(0);
                       }).ExecuteAsync();
 
-                Console.WriteLine(result.Account.Username);
+                Console.WriteLine("Received token from {0}", result.Account.Username);
                 return result;
             }
             catch (MsalServiceException ex)
             {
-                
+                Console.WriteLine("Error : {0}", ex.Message);
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
-                
+                Console.WriteLine("Operation Cancelled");
             }
-            catch (MsalClientException ex)
+            catch (MsalClientException)
             {
-                
+                Console.WriteLine("Verification Code Expired");
             }
 
             return null;
@@ -89,15 +87,14 @@ namespace Upload_OneDrive
                 Console.WriteLine(ex.Message);
                 Console.ResetColor();
             }
-            Console.WriteLine("Press any key to exit");
-            Console.ReadKey();
+            
         }
 
 
         private static async Task RunAsync()
         {
             AuthenticationResult aa = await GetATokenForGraph();
-            Console.WriteLine("END");
+            Console.WriteLine("Access Token : {0}",aa.AccessToken);
         }
 
 
