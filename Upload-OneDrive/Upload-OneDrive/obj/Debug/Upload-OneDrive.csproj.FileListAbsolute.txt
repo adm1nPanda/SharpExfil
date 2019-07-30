@@ -1,0 +1,10 @@
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\bin\Debug\Upload-OneDrive.exe.config
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\bin\Debug\Upload-OneDrive.exe
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\bin\Debug\Upload-OneDrive.pdb
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\bin\Debug\Microsoft.Identity.Client.dll
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\bin\Debug\Microsoft.Identity.Client.xml
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\obj\Debug\Upload-OneDrive.csprojAssemblyReference.cache
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\obj\Debug\Upload-OneDrive.csproj.CoreCompileInputs.cache
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\obj\Debug\Upload-OneDrive.csproj.CopyComplete
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\obj\Debug\Upload-OneDrive.exe
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\obj\Debug\Upload-OneDrive.pdb
