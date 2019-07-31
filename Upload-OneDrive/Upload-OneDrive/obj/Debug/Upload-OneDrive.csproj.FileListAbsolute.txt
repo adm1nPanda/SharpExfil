@@ -8,3 +8,7 @@ C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\o
 C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\obj\Debug\Upload-OneDrive.csproj.CopyComplete
 C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\obj\Debug\Upload-OneDrive.exe
 C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\obj\Debug\Upload-OneDrive.pdb
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\bin\Debug\System.ValueTuple.dll
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Dushyanth Chowdary\Desktop\SharpExfil\Upload-OneDrive\Upload-OneDrive\bin\Debug\System.ValueTuple.xml

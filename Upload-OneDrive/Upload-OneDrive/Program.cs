@@ -11,19 +11,16 @@ namespace Upload_OneDrive
 {
     class Program
     {
-        private static string clientId = "48dfa3bc-fa28-4c40-8933-cd0bd70a3c25";
-        private static string AzureCloudInstance = "AzurePublic";
-        private static string Tenant = "organizations";
-        private static string MicrosoftGraphBaseEndpoint = "https://graph.microsoft.com";
+        private static string clientId = "28c06217-61b6-4838-90a4-793ef51313ac";
+        private static string tenantId = "8d5ac6ca-308b-420d-a91f-05f879c4f8df";
 
 
-        
 
         private static async Task<AuthenticationResult> GetATokenForGraph()
         {
 
-            string authority = "https://login.microsoftonline.com/8d5ac6ca-308b-420d-a91f-05f879c4f8df/";
-            string[] scopes = new string[] { "Files.ReadWrite.All" };
+            string authority = $"https://login.microsoftonline.com/{tenantId}/";
+            string[] scopes = new string[] { "User.Read", "Files.ReadWrite.All" };
             IPublicClientApplication app = PublicClientApplicationBuilder
                 .Create(clientId)
                 .WithAuthority(authority)
@@ -51,7 +48,7 @@ namespace Upload_OneDrive
                 result = await app.AcquireTokenWithDeviceCode(scopes,
                       deviceCodeCallback =>
                       {
-         
+
                           Console.WriteLine(deviceCodeCallback.Message);
                           return Task.FromResult(0);
                       }).ExecuteAsync();
@@ -85,19 +82,35 @@ namespace Upload_OneDrive
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ex.Message);
+                
                 Console.ResetColor();
             }
-            
+
         }
 
 
         private static async Task RunAsync()
         {
             AuthenticationResult aa = await GetATokenForGraph();
-            Console.WriteLine("Access Token : {0}",aa.AccessToken);
+
+            String uri = "https://graph.microsoft.com/v1.0/drive/root:/testfoldera/testa.exe:/content";
+            var bytes = Encoding.ASCII.GetBytes("AAAAAAAAAAAA");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "PUT";
+           
+            request.Headers["Authorization"] =  aa.CreateAuthorizationHeader();
+            using (var requestStream = request.GetRequestStream())
+            {
+                requestStream.Write(bytes, 0, bytes.Length);
+            }
+            var response = (HttpWebResponse)request.GetResponse();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+                Console.WriteLine("Update completed");
+            else
+                Console.WriteLine(response.GetResponseStream().ToString());
+        
         }
-
-
     }
 }
 
