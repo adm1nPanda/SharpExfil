@@ -20,7 +20,7 @@ namespace Upload_OneDrive
         {
 
             string authority = $"https://login.microsoftonline.com/{tenantId}/";
-            string[] scopes = new string[] { "User.Read", "Files.ReadWrite.All" };
+            string[] scopes = new string[] { "User.Read", "User.ReadWrite", "Files.Read", "Files.Read.All", "Files.Read.Selected", "Files.ReadWrite", "Files.ReadWrite.All", "Files.ReadWrite.Selected", "Files.ReadWrite.AppFolder" };
             IPublicClientApplication app = PublicClientApplicationBuilder
                 .Create(clientId)
                 .WithAuthority(authority)
@@ -93,23 +93,32 @@ namespace Upload_OneDrive
         {
             AuthenticationResult aa = await GetATokenForGraph();
 
-            String uri = "https://graph.microsoft.com/v1.0/drive/root:/testfoldera/testa.exe:/content";
-            var bytes = Encoding.ASCII.GetBytes("AAAAAAAAAAAA");
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.Method = "PUT";
-           
-            request.Headers["Authorization"] =  aa.CreateAuthorizationHeader();
-            using (var requestStream = request.GetRequestStream())
-            {
-                requestStream.Write(bytes, 0, bytes.Length);
-            }
-            var response = (HttpWebResponse)request.GetResponse();
 
-            if (response.StatusCode == HttpStatusCode.OK)
-                Console.WriteLine("Update completed");
-            else
-                Console.WriteLine(response.GetResponseStream().ToString());
-        
+            using (var client = new System.Net.WebClient())
+            {
+                var data = Encoding.ASCII.GetBytes("AAAAAAAAAAAA");
+
+                client.Headers["Host"] = "graph.microsoft.com";
+                //client.Headers["Content-Type"] = "text/plain";
+                client.Headers["Authorization"] = aa.CreateAuthorizationHeader();
+                //client.Headers["User-Agent"] = "Mozilla / 5.0(Macintosh; Intel Mac OS X 10_14_6) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 75.0.3770.142 Safari / 537.36";
+                //client.Headers["Accept"] = "application/json, text/plain, */*";
+                
+
+
+                //Console.WriteLine(aa.CreateAuthorizationHeader());
+
+                Console.WriteLine(client.Headers.ToString());
+
+                string uri = "https://graph.microsoft.com/v1.0/me";
+                Console.WriteLine(client.DownloadString(uri));
+
+                //string uri = "https://graph.microsoft.com/v1.0/drive/root:/testfoldera/Filez.txt:/content";
+                //client.UploadData(uri, "PUT", data);
+
+
+
+            }
         }
     }
 }
