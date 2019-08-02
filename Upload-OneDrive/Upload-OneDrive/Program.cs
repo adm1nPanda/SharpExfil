@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
-using Newtonsoft.Json.Linq;
 using System.Net.Security;
 
 namespace Upload_OneDrive
@@ -70,7 +69,7 @@ namespace Upload_OneDrive
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 Console.WriteLine("You are missing an argument");
                 Environment.Exit(0);
@@ -95,11 +94,12 @@ namespace Upload_OneDrive
             Stream outStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(outStream);
             string responseFromServer = reader.ReadToEnd();
-            dynamic resp = JObject.Parse(responseFromServer);
             
+            
+            var access_token = responseFromServer.Substring(responseFromServer.IndexOf("\"access_token\":\"")+("\"access_token\":\"").Length, 1584);
             response.Close();
 
-
+            
             if (option == "small")
             {
                 //Reading Small File
@@ -110,8 +110,8 @@ namespace Upload_OneDrive
                     string upload_small = $"https://graph.microsoft.com/v1.0/drive/root:/testfoldera/{file_name}:/content";
                     HttpWebRequest rq_small = (HttpWebRequest)HttpWebRequest.Create(upload_small);
                     rq_small.Method = "PUT";
-                    rq_small.Host = "graph.microsoft.com";
-                    rq_small.Headers.Add("Authorization", "Bearer " + resp.access_token);
+                    
+                    rq_small.Headers.Add("Authorization", "Bearer " + access_token);
                     rq_small.ContentLength = small_fdata.Length;
                     var requestStream = rq_small.GetRequestStream();
                     requestStream.Write(small_fdata, 0, small_fdata.Length);
@@ -121,15 +121,15 @@ namespace Upload_OneDrive
                     outStream = rs_small.GetResponseStream();
                     reader = new StreamReader(outStream);
                     responseFromServer = reader.ReadToEnd();
-                    dynamic resp1 = JObject.Parse(responseFromServer);
-                    Console.WriteLine("Uploaded File ID: {0}", resp1.id);
+                    var name = responseFromServer.Substring(responseFromServer.IndexOf("\"name\":\"") + ("\"name\":\"").Length, file_name.Length);
+                    Console.WriteLine("Uploaded File: {0}", name);
                     rs_small.Close();
                 }
-                catch (System.IO.DirectoryNotFoundException e)
+                catch (System.IO.DirectoryNotFoundException )
                 {
                     Console.WriteLine("[-] Invalid File Path");
                 }
-                catch (System.IO.FileNotFoundException e)
+                catch (System.IO.FileNotFoundException )
                 {
                     Console.WriteLine("[-] File Doesn't Exist");
                 }
@@ -143,8 +143,7 @@ namespace Upload_OneDrive
 
                     HttpWebRequest rq1 = (HttpWebRequest)HttpWebRequest.Create(upload_large);
                     rq1.Method = "POST";
-                    rq1.Host = "graph.microsoft.com";
-                    rq1.Headers.Add("Authorization", "Bearer " + resp.access_token);
+                    rq1.Headers.Add("Authorization", "Bearer " + access_token);
                     rq1.ContentType = "application/json";
 
 
@@ -159,17 +158,17 @@ namespace Upload_OneDrive
                     outStream = rs1.GetResponseStream();
                     reader = new StreamReader(outStream);
                     responseFromServer = reader.ReadToEnd();
-                    dynamic resp1 = JObject.Parse(responseFromServer);
-                    //Console.WriteLine("Received UploadURL: {0}", resp1.uploadUrl);
+                    Console.WriteLine();
+                    var temp_upload_url = responseFromServer.Substring(responseFromServer.IndexOf("\"uploadUrl\":\"") + ("\"uploadUrl\":\"").Length, (responseFromServer.IndexOf("\"}", responseFromServer.IndexOf("\"uploadUrl\":\"") + ("\"uploadUrl\":\"").Length)) - (responseFromServer.IndexOf("\"uploadUrl\":\"") + ("\"uploadUrl\":\"").Length));
+                    
                     rs1.Close();
 
-
+                    
                     // Read no of bytes in upload file
                     long flen = new System.IO.FileInfo(file_path + "\\" + file_name).Length;
                     Console.WriteLine((int)flen);
 
                     //Uploading File few bytes at a time to OneDrive
-                    string temp_upload_url = Convert.ToString(resp1.uploadUrl);
 
                     var i = 0;
                     var psize = 0;
@@ -180,7 +179,6 @@ namespace Upload_OneDrive
                         //rq2.Proxy = new WebProxy("192.168.97.1", 8044);
                         ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
                         rq2.Method = "PUT";
-                        rq2.Host = "api.onedrive.com";
                         if ((flen - i) > 60000)
                         {
                             psize = 60000;
@@ -213,8 +211,7 @@ namespace Upload_OneDrive
                             outStream = rs2.GetResponseStream();
                             reader = new StreamReader(outStream);
                             responseFromServer = reader.ReadToEnd();
-                            dynamic resp2 = JObject.Parse(responseFromServer);
-                            Console.WriteLine("Received nextExpected ranges: {0}", resp2.nextExpectedRanges);
+                            Console.WriteLine(responseFromServer);
                             rs2.Close();
                         }
                         catch (WebException e)
@@ -236,11 +233,11 @@ namespace Upload_OneDrive
                     } while (i < flen);
                     fs.Close();
                 }
-                catch (System.IO.DirectoryNotFoundException e)
+                catch (System.IO.DirectoryNotFoundException )
                 {
                     Console.WriteLine("[-] Invalid File Path");
                 }
-                catch (System.IO.FileNotFoundException e)
+                catch (System.IO.FileNotFoundException )
                 {
                     Console.WriteLine("[-] File Doesn't Exist");
                 }
