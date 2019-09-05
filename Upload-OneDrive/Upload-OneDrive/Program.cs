@@ -12,10 +12,10 @@ namespace Upload_OneDrive
     {
         
         
-        static string cid = "28c06217-61b6-4838-90a4-793ef51313ac";
+        static string cid = "<Clientid-Token>";
         static string sco = "user.read.all%20files.readwrite.all%20offline_access";
-        static string ruri = "http://localhost/auth";
-        static string cs = "0KAtXXanUbM/[utu-UjaNQmniNGT=906";
+        static string ruri = "<Redirect-URL>";
+        static string cs = "<Client-Secret>";
         static string access_token = null;
         static string rtoken = null;
 
