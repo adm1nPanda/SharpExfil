@@ -13,7 +13,7 @@ Then build project from visual studio
 ## Running binary
 
 1. Goto the url -  
-	`https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=<application_id>&scope=<requested_scope>&redirect_uri=<redirect_uri>&response_type=token`  
+	`https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=<Client_ID>&scope=<Scopes>&response_type=code&redirect_uri=<Redirect_URI>`  
 	Replace Client_id with Application ID of the registered application.  
 	Make sure redirect_uri string has the same value from registration.  
 
