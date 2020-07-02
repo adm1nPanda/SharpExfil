@@ -20,11 +20,11 @@ Then build project from visual studio
 2. The new URL should contain the access_token  
 	<img src="./img/token.png"/>
 
-3. Run executable with generated code token
+3. Run executable with generated code token  
 	`
-	For Files smaller than 4mb:
-		Upload-OneDrive.exe -size=small -code=<Code_Token> -file=<Path_To_Upload_File>
-	For Files bigger than 4mb:
+	For Files smaller than 4mb:  
+		Upload-OneDrive.exe -size=small -code=<Code_Token> -file=<Path_To_Upload_File>  
+	For Files bigger than 4mb:  
 		Upload-OneDrive.exe -size=large -code=<Code_Token> -file=<Path_To_Upload_File>`
 	<img src="./img/command.png"/>
 	Pass all arguments in the same order
