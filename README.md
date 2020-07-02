@@ -21,7 +21,10 @@ Then build project from visual studio
 	<img src="./img/token.png"/>
 
 3. Run executable with generated code token
-	`Upload-OneDrive.exe -size=small -code=<Code_Token> -file=<Path_To_Upload_File>
-	Upload-OneDrive.exe -size=small -code=<Code_Token> -file=<Path_To_Upload_File>`
+	`
+	For Files smaller than 4mb:
+		Upload-OneDrive.exe -size=small -code=<Code_Token> -file=<Path_To_Upload_File>
+	For Files bigger than 4mb:
+		Upload-OneDrive.exe -size=large -code=<Code_Token> -file=<Path_To_Upload_File>`
 	<img src="./img/command.png"/>
 	Pass all arguments in the same order
