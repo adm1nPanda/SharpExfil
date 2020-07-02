@@ -8,14 +8,10 @@ using System.Net.Security;
 
 namespace Upload_OneDrive
 {
-    class Program
+    class Program : keys
     {
         
         
-        static string cid = "<Clientid-Token>";
-        static string sco = "user.read.all%20files.readwrite.all%20offline_access";
-        static string ruri = "<Redirect-URL>";
-        static string cs = "<Client-Secret>";
         static string access_token = null;
         static string rtoken = null;
 
@@ -232,7 +228,7 @@ namespace Upload_OneDrive
 
                         string postData = $"client_id={cid}&redirect_uri={ruri}&client_secret={cs}&code={code}&grant_type=authorization_code";
                         byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-
+                        
                         request.ContentType = "application/x-www-form-urlencoded";
                         request.Method = "POST";
                         request.ContentLength = byteArray.Length;
