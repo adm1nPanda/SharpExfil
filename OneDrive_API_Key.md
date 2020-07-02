@@ -9,12 +9,15 @@ This file demonstarates how to register an app on OneDrive to generate the requi
 
 3. Grant the necessary API permissions  
 	<img src="./img/Permissions.png"/>  
+
+4. Generate Client Secret for application
+	<img src="./img/csecret.png"/>
 	
-4. Goto the url -  
+5. Goto the url -  
 	https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=<application_id>&scope=<requested_scope>&redirect_uri=<redirect_uri>&response_type=token  
 	Replace Client_id with Application ID of the registered application.  
 	Make sure redirect_uri string has the same value from registration.  
 
-5. The new URL should contain the access_token  
+6. The new URL should contain the access_token  
 	<img src="./img/token.png"/>
 
